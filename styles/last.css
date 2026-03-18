@@ -1,0 +1,41 @@
+.last {
+  margin-top: 5rem;
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  max-height: 1000px;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.02),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  /* ❌ usunięte animacje */
+  opacity: 1;
+}
+
+.last__title {
+  padding-left: 1rem;
+  padding-top: 2rem;
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+.last__description {
+  padding-left: 1rem;
+  font-size: 1.5rem;
+}
+
+.last__btn {
+  margin: 1rem;
+  background-color: #ff7c5c;
+  color: white;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.last__img {
+  width: 100%;
+}

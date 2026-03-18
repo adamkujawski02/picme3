@@ -1,0 +1,30 @@
+.nav {
+  display: flex;
+  margin-inline: auto;
+  position: fixed;
+  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: space-between;
+  width: 90%;
+  top: 2rem;
+  padding: 0.75rem;
+  border-radius: 14px;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.2),
+    0 6px 20px rgba(0, 0, 0, 0.19);
+  z-index: 1000;
+  background-color: white;
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav__button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.6rem;
+  align-items: center;
+}
+
+.nav--hidden {
+  transform: translate(-50%, -150%);
+}

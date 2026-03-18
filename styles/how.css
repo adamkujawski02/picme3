@@ -1,0 +1,63 @@
+/* Zapobieganie scrollowi na całej stronie przez wystające elementy */
+body {
+  margin: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.carousel {
+  margin-top: 2rem;
+  width: 100%; /* Zajmuje pełną szerokość dostępną */
+  max-width: 100vw; /* Nigdy nie przekracza szerokości ekranu */
+  margin: 2rem auto;
+  overflow: hidden; /* To ucina wystające slajdy, zamiast robić scrolla */
+  position: relative;
+  touch-action: pan-y; /* Pozwala na naturalny scroll pionowy strony, ale przejmuje dotyk poziomy */
+}
+
+.how__description {
+  font-size: 2rem;
+  margin: 0 2rem 2rem 0;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  /* Usuwamy transition stąd, bo JS steruje nim dynamicznie */
+  will-change: transform;
+  cursor: grab;
+  /* Centrowanie pierwszego slajdu */
+  padding-left: calc(50% - 150px);
+  padding-right: calc(50% - 150px);
+}
+
+.carousel-track img {
+  width: 300px;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 12px;
+  user-select: none;
+  pointer-events: none; /* Zapobiega przeciąganiu samego obrazka zamiast tracka */
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .carousel-track img {
+    width: 220px;
+  }
+  .carousel-track {
+    padding-left: calc(50% - 110px);
+    padding-right: calc(50% - 110px);
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-track img {
+    width: 160px;
+  }
+  .carousel-track {
+    padding-left: calc(50% - 80px);
+    padding-right: calc(50% - 80px);
+  }
+}

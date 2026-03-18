@@ -1,0 +1,43 @@
+.safety {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 🔥 CENTRUJE WSZYSTKO */
+  background-color: rgb(243, 243, 243);
+  border-radius: 30px;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.02),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* tekst wyrównany do lewej, ale kontrolowany */
+.safety__title,
+.safety__description {
+  width: 90%;
+  max-width: 800px;
+}
+
+.safety__title {
+  font-size: 2rem;
+  margin: 2rem 0 1rem 0;
+}
+
+.safety__description1 {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  margin: 1rem;
+}
+
+.safety__description2 {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  margin: 0 1rem 0 1rem;
+}
+
+/* obraz */
+.safety__img {
+  display: block;
+  width: 90%;
+  margin: 2rem 4rem 2rem 4rem;
+  border-radius: 20px;
+}
