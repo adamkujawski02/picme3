@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="styles/safety.css" />
     <link rel="stylesheet" href="styles/last.css" />
     <link rel="stylesheet" href="styles/footer.css" />
+    <link rel="stylesheet" href="styles/slider.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
@@ -62,6 +63,50 @@
       </section>
     </div>
 
+    <section class="slider container">
+      <div class="slider-track">
+        <div class="slider-box">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+            <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+            <path
+              d="M320 64C214 64 128 148.4 128 252.6C128 371.9 248.2 514.9 298.4 569.4C310.2 582.2 329.8 582.2 341.6 569.4C391.8 514.9 512 371.9 512 252.6C512 148.4 426 64 320 64z"
+              class="slider-icon"
+            />
+          </svg>
+          <h3 class="slider-title1"><strong>Najpierw spotkanie</strong></h3>
+          <h3 class="slider-title2">potek spotkanie</h3>
+          <p class="slider-description1">Bez swipowania, bez</p>
+          <p class="slider-description2">ghostowania. Na żywo.</p>
+        </div>
+        <div class="slider-box">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+            <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+            <path
+              d="M320 64C214 64 128 148.4 128 252.6C128 371.9 248.2 514.9 298.4 569.4C310.2 582.2 329.8 582.2 341.6 569.4C391.8 514.9 512 371.9 512 252.6C512 148.4 426 64 320 64z"
+              class="slider-icon"
+            />
+          </svg>
+          <h3 class="slider-title1"><strong>Najpierw spotkanie</strong></h3>
+          <h3 class="slider-title2">potek spotkanie</h3>
+          <p class="slider-description1">Bez swipowania, bez</p>
+          <p class="slider-description2">ghostowania. Na żywo.</p>
+        </div>
+        <div class="slider-box">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+            <!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+            <path
+              d="M320 64C214 64 128 148.4 128 252.6C128 371.9 248.2 514.9 298.4 569.4C310.2 582.2 329.8 582.2 341.6 569.4C391.8 514.9 512 371.9 512 252.6C512 148.4 426 64 320 64z"
+              class="slider-icon"
+            />
+          </svg>
+          <h3 class="slider-title1"><strong>Najpierw spotkanie</strong></h3>
+          <h3 class="slider-title2">potek spotkanie</h3>
+          <p class="slider-description1">Bez swipowania, bez</p>
+          <p class="slider-description2">ghostowania. Na żywo.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="how container">
       <h2 class="how__description">Jak to działa?</h2>
       <div class="carousel-track">
@@ -86,26 +131,8 @@
 
     <section class="last container">
       <h3 class="last__title">Pobierz aplikację</h3>
-      <p class="last__description">Znajdź swoją randkę</p>
-      <button class="last__btn btn">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-arrow-down-to-line-icon lucide-arrow-down-to-line"
-        >
-          <path d="M12 17V3" />
-          <path d="m6 11 6 6 6-6" />
-          <path d="M19 21H5" />
-        </svg>
-        Pobierz teraz
-      </button>
+      <p class="last__description">spotykaj ludzi na żywo</p>
+      <button class="last__btn btn">Pobierz</button>
       <img src="images/phones.png" alt="Three phones" class="last__img" />
     </section>
 
@@ -198,7 +225,9 @@
       <button class="translate__btn">Translate</button>
     </section>
 
-    <script src="navbar.js"></script>
-    <script src="carousel.js" s></script>
+    <script src="navbar.js" defer></script>
+    <script src="carousel.js" defer></script>
+    <script src="slider.js" defer></script>
+    <script src="gallery.js" defer></script>
   </body>
 </html>

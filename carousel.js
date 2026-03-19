@@ -53,12 +53,14 @@ function animation() {
 
 function moveDrag(x, y) {
   if (!isDragging) return;
+
   const diffX = x - startX;
   const diffY = y - startY;
 
   if (!directionLocked) {
     const absX = Math.abs(diffX);
     const absY = Math.abs(diffY);
+
     if (absX > 10 || absY > 10) {
       directionLocked = true;
       isHorizontal = absX > absY;
@@ -68,13 +70,11 @@ function moveDrag(x, y) {
   if (directionLocked && isHorizontal) {
     currentTranslate = prevTranslate + diffX;
 
-    // Opór (rubber banding) na końcach
     const maxScroll = -(slides.length - 1) * slideWidth;
-    if (currentTranslate > 0) currentTranslate *= 0.4;
-    if (currentTranslate < maxScroll) {
-      const overscroll = currentTranslate - maxScroll;
-      currentTranslate = maxScroll + overscroll * 0.4;
-    }
+
+    /* 🔥 KLUCZOWY FIX — HARD LIMIT */
+    if (currentTranslate > 0) currentTranslate = 0;
+    if (currentTranslate < maxScroll) currentTranslate = maxScroll;
   }
 }
 

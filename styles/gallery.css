@@ -1,85 +1,94 @@
 .gallery__box {
+  position: relative;
+  height: 520px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 50px;
+  align-items: center;
+  padding: 40px 20px;
+  overflow: hidden;
 }
 
 .card {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  border-radius: 22px;
   overflow: hidden;
-  border-radius: 20px;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.35);
-  flex-shrink: 0;
-}
-
-.card-1 {
-  width: 300px;
-  height: 450px;
-  z-index: 3;
-}
-
-.card-2 {
-  width: 250px;
-  height: 380px;
-  z-index: 2;
-  margin-left: -80px;
-  margin-top: 40px;
-}
-
-.card-3 {
-  width: 200px;
-  height: 300px;
-  z-index: 1;
-  margin-left: -80px;
-  margin-top: 80px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1.2);
+  will-change: transform, width, height, z-index, opacity;
+  pointer-events: none;
 }
 
 .card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-.gallery__title1,
-.gallery__title2 {
-  display: block;
-  font-size: 2.2rem;
+/* ─── Pozycje ──────────────────────────────────────── */
+.card.front {
+  width: 320px;
+  height: 480px;
+  z-index: 30;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
 }
 
-.gallery__title1 {
-  margin-top: 1rem;
+.card.middle {
+  width: 260px;
+  height: 400px;
+  z-index: 20;
+  transform: translate(-50%, -50%) translateX(-100px) translateY(35px)
+    scale(0.96);
+  opacity: 0.92;
 }
 
-.gallery__title2 {
-  margin-bottom: 2rem;
+.card.back {
+  width: 220px;
+  height: 340px;
+  z-index: 10;
+  transform: translate(-50%, -50%) translateX(-190px) translateY(85px)
+    scale(0.89);
+  opacity: 0.84;
 }
 
-.gallery__description {
-  font-weight: 300;
-  margin-bottom: 5rem;
-  font-size: 1.3rem;
+/* nazwa + serduszko na dole każdej karty */
+.card::after {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 0.98rem;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 /* responsywność */
-@media (max-width: 700px) {
-  .card-1 {
+@media (max-width: 720px) {
+  .gallery__box {
+    height: 420px;
+  }
+  .card.front {
+    width: 240px;
+    height: 360px;
+  }
+  .card.middle {
     width: 200px;
-    height: 350px;
+    height: 310px;
+    transform: translate(-50%, -50%) translateX(-80px) translateY(30px)
+      scale(0.96);
   }
-
-  .card-2 {
-    width: 150px;
-    height: 280px;
-    margin-left: -60px;
-    margin-top: 20px;
-  }
-
-  .card-3 {
-    width: 100px;
-    height: 200px;
-    margin-left: -60px;
-    margin-top: 40px;
+  .card.back {
+    width: 170px;
+    height: 270px;
+    transform: translate(-50%, -50%) translateX(-150px) translateY(70px)
+      scale(0.89);
   }
 }
