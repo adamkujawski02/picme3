@@ -45,9 +45,9 @@ body {
   display: block;
 }
 
-.how__description {
+.how__description1,
+.how__description2 {
   font-size: 2rem;
-  margin-bottom: 3rem;
 }
 
 /* RESPONSYWNOŚĆ */

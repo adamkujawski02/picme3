@@ -1,3 +1,5 @@
+/* ── bez zmian w stylach ── zostawiamy dokładnie tak jak miałeś */
+
 .gallery__box {
   position: relative;
   height: 520px;
@@ -27,7 +29,7 @@
   object-fit: cover;
 }
 
-/* ─── Pozycje ──────────────────────────────────────── */
+/* Pozycje */
 .card.front {
   width: 320px;
   height: 480px;
@@ -54,8 +56,9 @@
   opacity: 0.84;
 }
 
-/* nazwa + serduszko na dole każdej karty */
+/* nazwa + serduszko */
 .card::after {
+  content: attr(data-name); /* ← zmienione – bierzemy z atrybutu */
   position: absolute;
   bottom: 14px;
   left: 50%;
@@ -70,7 +73,7 @@
   pointer-events: none;
 }
 
-/* responsywność */
+/* responsywność – bez zmian */
 @media (max-width: 720px) {
   .gallery__box {
     height: 420px;

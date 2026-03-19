@@ -1,48 +1,56 @@
 const box = document.querySelector(".gallery__box");
 const cards = Array.from(box.querySelectorAll(".card"));
 
-if (cards.length === 3) {
+if (cards.length === 5) {
   const positions = ["front", "middle", "back"];
 
-  // Początkowy stan
+  // Początkowy stan – tylko 3 pierwsze karty są widoczne
   cards.forEach((card, i) => {
-    card.className = `card ${positions[i]}`;
+    card.classList.remove("front", "middle", "back");
+    if (i < 3) {
+      card.classList.add(positions[i]);
+    } else {
+      // pozostałe na razie schowane
+      card.style.opacity = "0";
+      card.style.transform = "translate(-50%, -50%) scale(0.7)";
+    }
   });
 
   setInterval(() => {
-    // Krok 1: wszystkie karty dostają klasę disappearing (znikają)
-    cards.forEach((card) => card.classList.add("disappearing"));
+    // 1. Zapamiętujemy aktualny stan klas widocznych kart
+    const current = [
+      cards[0].className, // front
+      cards[1].className, // middle
+      cards[2].className, // back
+    ];
 
-    setTimeout(() => {
-      // Krok 2: po ~500 ms zmieniamy pozycje (już niewidoczne)
-      const prevClasses = cards.map((card) =>
-        card.className.replace(" disappearing", ""),
-      );
+    // 2. Przesuwamy w lewo (pierwsza znika)
+    // cards[0] → znika
+    // cards[1] → staje się front
+    // cards[2] → staje się middle
+    // cards[3] → staje się back     (jeśli była ukryta → pokazuje się)
+    // cards[4] → czeka w kolejce
 
-      // Rotacja:  front → back, middle → front, back → middle
-      cards[0].className = `card disappearing ${prevClasses[2].split(" ")[1]}`; // stara back → nowa front (ale wciąż znika)
-      cards[1].className = `card disappearing ${prevClasses[0].split(" ")[1]}`; // stara front → nowa middle
-      cards[2].className = `card disappearing ${prevClasses[1].split(" ")[1]}`; // stara middle → nowa back
+    // Najpierw chowamy pierwszą kartę (można też zostawić opacity 0 i scale)
+    cards[0].classList.remove("front", "middle", "back");
+    cards[0].style.opacity = "0";
+    cards[0].style.transform = "translate(-50%, -50%) scale(0.6)";
 
-      // Krok 3: po bardzo krótkim czasie usuwamy disappearing i dodajemy appearing
-      setTimeout(() => {
-        cards.forEach((card) => {
-          card.classList.remove("disappearing");
-          card.classList.add("appearing");
-        });
+    // Przesunięcie w lewo
+    cards[1].className = "card front";
+    cards[2].className = "card middle";
 
-        // Krok 4: po 50–150 ms kończymy animację wejścia
-        setTimeout(() => {
-          cards.forEach((card) => {
-            card.classList.remove("appearing");
-            // klasa pozycji już jest ustawiona wcześniej – appearing tylko pomaga w starcie animacji
-          });
-        }, 80); // krótki delay na „wejście”
-      }, 50); // minimalny delay przed pojawieniem
-    }, 500); // czas znikania – dostosuj do transition w CSS (tu 0.5s)
+    // Nowa karta wchodzi z prawej (zaczyna od back)
+    const nextCard = cards[3];
+    nextCard.className = "card back";
+    nextCard.style.opacity = "";
+    nextCard.style.transform = "";
 
-    // Opcjonalny puls na kontenerze
+    // Przesuwamy tablicę – usuwamy pierwszą, dokładamy na koniec tę która wyszła
+    cards.push(cards.shift());
+
+    // Mały puls / tick (opcjonalne)
     box.classList.add("tick");
-    setTimeout(() => box.classList.remove("tick"), 900);
-  }, 1800); // cały cykl co ~1.8 s – możesz zmniejszyć do 1400–1600 ms
+    setTimeout(() => box.classList.remove("tick"), 800);
+  }, 1600); // możesz zmienić na 1200–2000 ms
 }
