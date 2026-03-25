@@ -1,155 +1,129 @@
-const track = document.querySelector(".carousel-track");
-const slides = Array.from(track.children);
-let currentIndex = 0;
-
-if (slides.length === 0) {
-  console.warn("Brak slajdow w karuzeli");
-}
-
-let startX = 0;
-let startY = 0;
-let currentTranslate = 0;
-let prevTranslate = 0;
-let isDragging = false;
-let animationID = 0;
-let directionLocked = false;
-let isHorizontal = false;
-
-const SNAP_DURATION = "0.55s";
-const SNAP_EASING = "cubic-bezier(0.23, 1, 0.32, 1)";
-
-function getSlideWidth() {
-  return slides.length > 0 ? slides[0].offsetWidth + 16 : 0;
-}
-
-let slideWidth = getSlideWidth();
-
-function setSliderPosition(animate = false) {
-  track.style.transition = animate
-    ? `transform ${SNAP_DURATION} ${SNAP_EASING}`
-    : "none";
-  track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-}
-
-function startDrag(x, y) {
-  isDragging = true;
-  startX = x;
-  startY = y;
-  directionLocked = false;
-  isHorizontal = false;
-
-  // Zatrzymujemy ewentualną animację snapowania przy ponownym dotyku
-  track.style.transition = "none";
-  animationID = requestAnimationFrame(animation);
-  track.style.cursor = "grabbing";
-}
-
-function animation() {
-  if (isDragging) {
-    setSliderPosition(false);
-    requestAnimationFrame(animation);
-  }
-}
-
-function moveDrag(x, y) {
-  if (!isDragging) return;
-
-  const diffX = x - startX;
-  const diffY = y - startY;
-
-  if (!directionLocked) {
-    const absX = Math.abs(diffX);
-    const absY = Math.abs(diffY);
-
-    if (absX > 10 || absY > 10) {
-      directionLocked = true;
-      isHorizontal = absX > absY;
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector(".carousel-track");
+  if (!track) {
+    console.warn("Brak .carousel-track");
+    return;
   }
 
-  if (directionLocked && isHorizontal) {
-    currentTranslate = prevTranslate + diffX;
-
-    const maxScroll = -(slides.length - 1) * slideWidth;
-
-    /* 🔥 KLUCZOWY FIX — HARD LIMIT */
-    if (currentTranslate > 0) currentTranslate = 0;
-    if (currentTranslate < maxScroll) currentTranslate = maxScroll;
+  const slides = Array.from(track.children);
+  if (slides.length === 0) {
+    console.warn("Brak slajdów");
+    return;
   }
-}
 
-function endDrag() {
-  if (!isDragging) return;
-  isDragging = false;
-  cancelAnimationFrame(animationID);
-  track.style.cursor = "grab";
+  let isDragging = false;
+  let startX = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationID = 0;
 
-  // Logika snapowania do najbliższego slajdu
-  currentIndex = Math.round(Math.abs(currentTranslate / slideWidth));
-  currentIndex = Math.max(0, Math.min(currentIndex, slides.length - 1));
+  let slideWidth = 0; // używane tylko do granic
+  let containerWidth = 0;
+  let minTranslate = 0;
+  let maxTranslate = 0;
 
-  currentTranslate = currentIndex * -slideWidth;
-  prevTranslate = currentTranslate;
+  function updateSizes() {
+    if (slides.length === 0) return;
 
-  setSliderPosition(true);
-}
+    slideWidth = slides[0].offsetWidth + 16; // + gap, dostosuj jeśli masz inny gap
+    containerWidth = track.parentElement.offsetWidth || window.innerWidth;
 
-// Obsługa Touch
-track.addEventListener(
-  "touchstart",
-  (e) => {
-    startDrag(e.touches[0].clientX, e.touches[0].clientY);
-  },
-  { passive: true },
-);
+    // Bardzo luźne granice – możesz przewijać aż ostatni slajd zniknie prawie całkowicie
+    maxTranslate = 0; // nie pozwalamy na zbyt duży pull w prawo
+    minTranslate = containerWidth - slides.length * slideWidth - 100; // -100 = możesz "wyciągnąć" trochę dalej
 
-track.addEventListener(
-  "touchmove",
-  (e) => {
-    if (!isDragging) return;
-    const currentX = e.touches[0].clientX;
-    const currentY = e.touches[0].clientY;
+    // Jeśli chcesz jeszcze luźniej → zmień -100 na -300 lub nawet usuń ograniczenie minTranslate
+  }
 
-    if (directionLocked && isHorizontal) {
-      if (e.cancelable) e.preventDefault(); // Blokuje scroll pionowy strony tylko gdy przewijamy karuzelę
-      moveDrag(currentX, currentY);
-    } else if (!directionLocked) {
-      const diffX = Math.abs(currentX - startX);
-      const diffY = Math.abs(currentY - startY);
-      if (diffX > 8 || diffY > 8) {
-        directionLocked = true;
-        isHorizontal = diffX > diffY;
-      }
-    }
-  },
-  { passive: false },
-);
+  function setPosition() {
+    track.style.transition = "none";
+    track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+  }
 
-track.addEventListener("touchend", endDrag);
-
-// Obsługa Myszki
-track.addEventListener("mousedown", (e) => {
-  e.preventDefault();
-  startDrag(e.clientX, e.clientY);
-});
-
-window.addEventListener("mousemove", (e) => {
-  if (isDragging) moveDrag(e.clientX, e.clientY);
-});
-
-window.addEventListener("mouseup", endDrag);
-
-// Resizing
-let resizeTimer;
-window.addEventListener("resize", () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    slideWidth = getSlideWidth();
-    currentTranslate = currentIndex * -slideWidth;
+  function startDrag(x) {
+    isDragging = true;
+    startX = x;
     prevTranslate = currentTranslate;
-    setSliderPosition(false);
-  }, 150);
-});
+    track.style.cursor = "grabbing";
+    track.style.transition = "none";
+    cancelAnimationFrame(animationID);
+    animationID = requestAnimationFrame(tick);
+  }
 
-// Init
-setSliderPosition(false);
+  function tick() {
+    if (isDragging) {
+      setPosition();
+      animationID = requestAnimationFrame(tick);
+    }
+  }
+
+  function moveDrag(x) {
+    if (!isDragging) return;
+    const diff = x - startX;
+    currentTranslate = prevTranslate + diff;
+
+    // luźne ograniczenie – możesz je całkowicie usunąć jeśli chcesz infinite feel
+    currentTranslate = Math.max(
+      minTranslate,
+      Math.min(maxTranslate, currentTranslate),
+    );
+  }
+
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    cancelAnimationFrame(animationID);
+    track.style.cursor = "grab";
+    // NIC nie robimy – zostaje tam gdzie puściłeś
+  }
+
+  // ─── TOUCH ────────────────────────────────
+  track.addEventListener(
+    "touchstart",
+    (e) => {
+      startDrag(e.touches[0].clientX);
+    },
+    { passive: true },
+  );
+
+  track.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!isDragging) return;
+      if (e.cancelable) e.preventDefault(); // blokuje scroll strony
+      moveDrag(e.touches[0].clientX);
+    },
+    { passive: false },
+  );
+
+  track.addEventListener("touchend", endDrag);
+  track.addEventListener("touchcancel", endDrag);
+
+  // ─── MOUSE ────────────────────────────────
+  track.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    startDrag(e.clientX);
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) moveDrag(e.clientX);
+  });
+
+  document.addEventListener("mouseup", endDrag);
+  document.addEventListener("mouseleave", endDrag);
+
+  // ─── RESIZE ───────────────────────────────
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      updateSizes();
+      // nie centrować, zostaje gdzie jest
+      setPosition();
+    }, 120);
+  });
+
+  // START
+  updateSizes();
+  setPosition();
+});

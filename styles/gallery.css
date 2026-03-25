@@ -1,25 +1,24 @@
-/* ── bez zmian w stylach ── zostawiamy dokładnie tak jak miałeś */
-
+/* ── BAZOWE STYLE (MOBILE-FIRST: 0-500px) ── */
 .gallery__box {
   position: relative;
-  height: 520px;
+  height: 380px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 40px 20px;
+  justify-content: center;
+  padding: 10px;
   overflow: hidden;
+  width: 100%;
 }
 
 .card {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform-origin: center center;
-  border-radius: 22px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
-  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1.2);
-  will-change: transform, width, height, z-index, opacity;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
   pointer-events: none;
 }
 
@@ -29,69 +28,121 @@
   object-fit: cover;
 }
 
-/* Pozycje */
+/* ── 0-500px ── */
 .card.front {
-  width: 320px;
-  height: 480px;
+  width: 150px;
+  height: 220px;
   z-index: 30;
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
+  transform: translate(-50%, -50%);
 }
 
 .card.middle {
-  width: 260px;
-  height: 400px;
+  width: 130px;
+  height: 190px;
   z-index: 20;
-  transform: translate(-50%, -50%) translateX(-100px) translateY(35px)
-    scale(0.96);
-  opacity: 0.92;
+  transform: translate(-85%, -52%) scale(0.9);
 }
 
 .card.back {
-  width: 220px;
-  height: 340px;
+  width: 110px;
+  height: 165px;
   z-index: 10;
-  transform: translate(-50%, -50%) translateX(-190px) translateY(85px)
-    scale(0.89);
-  opacity: 0.84;
+  transform: translate(-120%, -55%) scale(0.8);
 }
 
-/* nazwa + serduszko */
-.card::after {
-  content: attr(data-name); /* ← zmienione – bierzemy z atrybutu */
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.65);
-  color: white;
-  padding: 6px 18px;
-  border-radius: 999px;
-  font-size: 0.98rem;
-  font-weight: 500;
-  white-space: nowrap;
-  pointer-events: none;
+/* ── 400px - 600px ── */
+@media (min-width: 400px) and (max-width: 600px) {
+  .gallery__box {
+    height: 320px;
+  }
+
+  .card.front {
+    width: 190px;
+    height: 280px;
+  }
+
+  .card.middle {
+    width: 165px;
+    height: 245px;
+    transform: translate(-90%, -52%) scale(0.9);
+  }
+
+  .card.back {
+    width: 140px;
+    height: 210px;
+    transform: translate(-130%, -55%) scale(0.8);
+  }
 }
 
-/* responsywność – bez zmian */
-@media (max-width: 720px) {
+/* ── 600px - 824px ── */
+@media (min-width: 600px) and (max-width: 824px) {
+  .gallery__box {
+    height: 400px;
+  }
+
+  .card.front {
+    width: 230px;
+    height: 340px;
+  }
+
+  .card.middle {
+    width: 200px;
+    height: 300px;
+    transform: translate(-95%, -52%) scale(0.9);
+  }
+
+  .card.back {
+    width: 175px;
+    height: 260px;
+    transform: translate(-140%, -55%) scale(0.8);
+  }
+}
+
+/* ── 824px - 1024px (JESZCZE MNIEJSZE) ── */
+@media (min-width: 824px) and (max-width: 1024px) {
   .gallery__box {
     height: 420px;
   }
+
+  .card.front {
+    width: 210px; /* było 240 */
+    height: 320px; /* było 360 */
+  }
+
+  .card.middle {
+    width: 180px; /* było 210 */
+    height: 280px; /* było 320 */
+    transform: translate(-90%, -52%) scale(0.9);
+  }
+
+  .card.back {
+    width: 150px; /* było 180 */
+    height: 240px; /* było 280 */
+    transform: translate(-130%, -55%) scale(0.8);
+  }
+}
+
+/* ── ≥1024px ── */
+@media (min-width: 1024px) {
+  .gallery__box {
+    height: 500px;
+  }
+
   .card.front {
     width: 240px;
-    height: 360px;
+    height: 370px;
+    transform: translate(-50%, -50%);
   }
+
   .card.middle {
-    width: 200px;
-    height: 310px;
-    transform: translate(-50%, -50%) translateX(-80px) translateY(30px)
-      scale(0.96);
+    width: 210px;
+    height: 320px;
+    transform: translate(-85%, -52%) scale(0.9);
   }
+
   .card.back {
-    width: 170px;
+    width: 180px;
     height: 270px;
-    transform: translate(-50%, -50%) translateX(-150px) translateY(70px)
-      scale(0.89);
+    transform: translate(-125%, -55%) scale(0.8);
   }
 }

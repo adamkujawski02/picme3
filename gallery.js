@@ -4,53 +4,49 @@ const cards = Array.from(box.querySelectorAll(".card"));
 if (cards.length === 5) {
   const positions = ["front", "middle", "back"];
 
-  // Początkowy stan – tylko 3 pierwsze karty są widoczne
   cards.forEach((card, i) => {
     card.classList.remove("front", "middle", "back");
     if (i < 3) {
       card.classList.add(positions[i]);
     } else {
-      // pozostałe na razie schowane
       card.style.opacity = "0";
       card.style.transform = "translate(-50%, -50%) scale(0.7)";
     }
   });
 
   setInterval(() => {
-    // 1. Zapamiętujemy aktualny stan klas widocznych kart
-    const current = [
-      cards[0].className, // front
-      cards[1].className, // middle
-      cards[2].className, // back
-    ];
+    // 1. Schowaj obecną front i OD RAZU zresetuj jej style
+    const outgoing = cards[0];
+    outgoing.classList.remove("front", "middle", "back");
+    outgoing.style.opacity = "0";
+    outgoing.style.transform = "translate(-50%, -50%) scale(0.6)"; // ← animacja znikania
 
-    // 2. Przesuwamy w lewo (pierwsza znika)
-    // cards[0] → znika
-    // cards[1] → staje się front
-    // cards[2] → staje się middle
-    // cards[3] → staje się back     (jeśli była ukryta → pokazuje się)
-    // cards[4] → czeka w kolejce
+    // Natychmiastowy reset – zanim karta wróci jako "back"
+    // (można też zrobić to w requestAnimationFrame, ale setTimeout 0 też wystarcza)
+    setTimeout(() => {
+      outgoing.style.transform = "translate(-50%, -50%) scale(1)"; // lub "" jeśli masz scale w CSS
+      outgoing.style.opacity = "0"; // nadal ukryta
+    }, 0); // albo 16–50 ms jeśli reset za szybko psuje animację znikania
 
-    // Najpierw chowamy pierwszą kartę (można też zostawić opacity 0 i scale)
-    cards[0].classList.remove("front", "middle", "back");
-    cards[0].style.opacity = "0";
-    cards[0].style.transform = "translate(-50%, -50%) scale(0.6)";
+    // 2. Przesunięcie istniejących kart
+    cards[1].classList.remove("front", "middle", "back");
+    cards[1].classList.add("front");
 
-    // Przesunięcie w lewo
-    cards[1].className = "card front";
-    cards[2].className = "card middle";
+    cards[2].classList.remove("front", "middle", "back");
+    cards[2].classList.add("middle");
 
-    // Nowa karta wchodzi z prawej (zaczyna od back)
-    const nextCard = cards[3];
-    nextCard.className = "card back";
-    nextCard.style.opacity = "";
-    nextCard.style.transform = "";
+    // 3. Nowa karta wchodzi jako back
+    const incoming = cards[3];
+    incoming.classList.remove("front", "middle", "back");
+    incoming.classList.add("back");
+    incoming.style.opacity = "";
+    incoming.style.transform = ""; // ← tu musi być czysty stan!
 
-    // Przesuwamy tablicę – usuwamy pierwszą, dokładamy na koniec tę która wyszła
+    // 4. Rotacja tablicy
     cards.push(cards.shift());
 
-    // Mały puls / tick (opcjonalne)
+    // 5. tick (opcjonalne)
     box.classList.add("tick");
     setTimeout(() => box.classList.remove("tick"), 800);
-  }, 1600); // możesz zmienić na 1200–2000 ms
+  }, 1600);
 }

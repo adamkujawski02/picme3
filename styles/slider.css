@@ -1,66 +1,115 @@
-.slider {
+/* ── GLOBAL FIX ── */
+html,
+body {
+  margin: 0;
+  overflow-x: hidden;
   width: 100%;
-  max-width: 100vw;
-  margin: 3rem auto 4rem;
-  overflow: hidden;
-  position: relative;
-  touch-action: pan-y;
-  overscroll-behavior-x: contain; /* ← bardzo pomaga */
-  user-select: none;
-  -webkit-user-select: none;
 }
 
+/* ── SLIDER ── */
+.slider {
+  margin: 3rem auto 4rem;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+
+  touch-action: pan-y;
+  overscroll-behavior-x: contain;
+  user-select: none;
+  -webkit-user-select: none;
+
+  overflow: hidden; /* mobile swipe */
+}
+
+/* wrapper daje miejsce na shadow */
+.slider-wrapper {
+  padding: 30px 0;
+}
+
+/* ── TRACK ── */
 .slider-track {
+  --slide-width: 250px;
+
   display: flex;
   align-items: center;
   gap: 1.5rem;
+
   will-change: transform;
   cursor: grab;
+
   transform-style: preserve-3d;
   backface-visibility: hidden;
+
+  transition: transform 0.3s ease;
 }
 
+/* ── KARTY ── */
 .slider-box {
-  flex: 0 0 300px;
-  width: 300px;
-  padding: 2.5rem 1.8rem;
+  flex: 0 0 var(--slide-width);
+  width: var(--slide-width);
+
+  padding: 2rem 1.8rem;
   border-radius: 16px;
   background: white;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  /* 🔥 lepszy, "okalający" shadow */
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.12),
+    0 8px 25px rgba(0, 0, 0, 0.18),
+    0 16px 40px rgba(0, 0, 0, 0.15);
+
   transition:
     transform 0.28s ease,
     box-shadow 0.28s ease;
+
+  pointer-events: none;
 }
 
 .slider-box:active {
   cursor: grabbing;
 }
 
-.slider-box.active {
-  transform: scale(1.07);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
-  z-index: 2;
+.slider-icon {
+  fill: #ff7556;
 }
 
-/* Responsywność – dopasuj wartości do swoich potrzeb */
-@media (max-width: 900px) {
-  .slider-box {
-    flex: 0 0 260px;
-    width: 260px;
-    padding: 2.2rem 1.6rem;
+/* ─────────────────────────
+   MOBILE / TABLET (SWIPE)
+──────────────────────── */
+@media (max-width: 1023px) {
+  .slider-track {
+    justify-content: flex-start;
+    width: max-content;
+
+    /* 🔥 centrowanie pierwszej karty */
+    padding-left: calc(50% - var(--slide-width) / 2);
+    padding-right: calc(50% - var(--slide-width) / 2);
   }
 }
-@media (max-width: 640px) {
-  .slider-box {
-    flex: 0 0 220px;
-    width: 220px;
-    padding: 2rem 1.4rem;
+
+/* ─────────────────────────
+   DESKTOP ≥1024px (STOP + CENTER)
+──────────────────────── */
+@media (min-width: 850px) {
+  .slider {
+    overflow: visible; /* shadow nie ucinany */
   }
-}
-@media (max-width: 460px) {
+
+  .slider-track {
+    justify-content: center;
+    width: 100%;
+    transform: none !important;
+
+    cursor: default;
+    pointer-events: none;
+
+    /* 🔥 perfekcyjne centrowanie */
+    padding-left: calc(50% - var(--slide-width) / 2);
+    padding-right: calc(50% - var(--slide-width) / 2);
+  }
+
   .slider-box {
-    flex: 0 0 180px;
-    width: 180px;
-    padding: 1.8rem 1.2rem;
+    pointer-events: auto;
+    flex: 0 0 auto;
   }
 }
