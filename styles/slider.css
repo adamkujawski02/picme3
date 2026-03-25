@@ -52,7 +52,6 @@ body {
   border-radius: 16px;
   background: white;
 
-  /* 🔥 lepszy, "okalający" shadow */
   box-shadow:
     0 0 0 2px rgba(0, 0, 0, 0.12),
     0 8px 25px rgba(0, 0, 0, 0.18),
@@ -73,26 +72,19 @@ body {
   fill: #ff7556;
 }
 
-/* ─────────────────────────
-   MOBILE / TABLET (SWIPE)
-──────────────────────── */
 @media (max-width: 1023px) {
   .slider-track {
     justify-content: flex-start;
     width: max-content;
 
-    /* 🔥 centrowanie pierwszej karty */
     padding-left: calc(50% - var(--slide-width) / 2);
     padding-right: calc(50% - var(--slide-width) / 2);
   }
 }
 
-/* ─────────────────────────
-   DESKTOP ≥1024px (STOP + CENTER)
-──────────────────────── */
 @media (min-width: 850px) {
   .slider {
-    overflow: visible; /* shadow nie ucinany */
+    overflow: visible;
   }
 
   .slider-track {
@@ -103,7 +95,6 @@ body {
     cursor: default;
     pointer-events: none;
 
-    /* 🔥 perfekcyjne centrowanie */
     padding-left: calc(50% - var(--slide-width) / 2);
     padding-right: calc(50% - var(--slide-width) / 2);
   }

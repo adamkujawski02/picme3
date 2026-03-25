@@ -1,4 +1,3 @@
-/* ── BAZOWE STYLE ── */
 .hero {
   margin-top: 4rem;
 }
@@ -70,7 +69,6 @@
   }
 }
 
-/* ── ≥768px ── */
 @media (min-width: 768px) {
   .container {
     max-width: 768px;
@@ -81,7 +79,6 @@
   }
 }
 
-/* ── NOWY BREAKPOINT ≥824px ── */
 @media (min-width: 824px) {
   .container {
     max-width: 824px;
@@ -103,10 +100,10 @@
   .hero__description2 {
     font-size: 1.25rem;
   }
-} /* ── NOWY BREAKPOINT ≥911px ── */
+}
 @media (min-width: 825px) {
   .hero__title1 {
-    font-size: 2.5rem; /* większa niż 824px, mniejsza niż 1024px */
+    font-size: 2.5rem;
   }
   .hero__title2 {
     font-size: 2rem;
@@ -119,7 +116,6 @@
   }
 }
 
-/* ── ≥1024px ── */
 @media (min-width: 1024px) {
   .container {
     max-width: 1024px;
@@ -139,7 +135,6 @@
   }
 }
 
-/* ── ≥1280px ── */
 @media (min-width: 1280px) {
   .container {
     max-width: 1280px;
@@ -153,7 +148,6 @@
   }
 }
 
-/* ── ≥1536px ── */
 @media (min-width: 1536px) {
   .container {
     max-width: 1536px;

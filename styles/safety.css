@@ -2,7 +2,7 @@
   margin-top: 5rem;
   display: flex;
   flex-direction: column;
-  align-items: center; /* 🔥 CENTRUJE WSZYSTKO */
+  align-items: center;
   background-color: rgb(243, 243, 243);
   border-radius: 30px;
   box-shadow:
@@ -10,7 +10,6 @@
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-/* tekst wyrównany do lewej, ale kontrolowany */
 .safety__title,
 .safety__description {
   width: 90%;

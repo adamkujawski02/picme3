@@ -1,4 +1,3 @@
-/* ── BAZOWE STYLE (MOBILE-FIRST: 0-500px) ── */
 .gallery__box {
   position: relative;
   height: 380px;
@@ -28,7 +27,6 @@
   object-fit: cover;
 }
 
-/* ── 0-500px ── */
 .card.front {
   width: 150px;
   height: 220px;
@@ -50,7 +48,6 @@
   transform: translate(-120%, -55%) scale(0.8);
 }
 
-/* ── 400px - 600px ── */
 @media (min-width: 400px) and (max-width: 600px) {
   .gallery__box {
     height: 320px;
@@ -74,7 +71,6 @@
   }
 }
 
-/* ── 600px - 824px ── */
 @media (min-width: 600px) and (max-width: 824px) {
   .gallery__box {
     height: 400px;
@@ -98,31 +94,29 @@
   }
 }
 
-/* ── 824px - 1024px (JESZCZE MNIEJSZE) ── */
 @media (min-width: 824px) and (max-width: 1024px) {
   .gallery__box {
     height: 420px;
   }
 
   .card.front {
-    width: 210px; /* było 240 */
-    height: 320px; /* było 360 */
+    width: 210px;
+    height: 320px;
   }
 
   .card.middle {
-    width: 180px; /* było 210 */
-    height: 280px; /* było 320 */
+    width: 180px;
+    height: 280px;
     transform: translate(-90%, -52%) scale(0.9);
   }
 
   .card.back {
-    width: 150px; /* było 180 */
-    height: 240px; /* było 280 */
+    width: 150px;
+    height: 240px;
     transform: translate(-130%, -55%) scale(0.8);
   }
 }
 
-/* ── ≥1024px ── */
 @media (min-width: 1024px) {
   .gallery__box {
     height: 500px;

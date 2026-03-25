@@ -1,4 +1,3 @@
-/* GLOBAL FIX */
 html,
 body {
   margin: 0;
@@ -6,7 +5,6 @@ body {
   width: 100%;
 }
 
-/* KARUZELA */
 .carousel {
   margin: 2rem auto;
   width: 100%;
@@ -18,7 +16,6 @@ body {
   overscroll-behavior-x: contain;
 }
 
-/* TRACK */
 .carousel-track {
   --slide-width: 200px;
 
@@ -32,7 +29,6 @@ body {
   transition: transform 0.3s ease;
 }
 
-/* SLIDES */
 .carousel-track img {
   width: var(--slide-width);
   height: auto;
@@ -44,20 +40,13 @@ body {
   display: block;
 }
 
-/* ─────────────────────────
-   MOBILE / TABLET (SWIPE)
-──────────────────────── */
-
-/* ─────────────────────────
-   DESKTOP ≥850px (STOP + CENTER)
-──────────────────────── */
 @media (min-width: 721px) {
   .carousel {
     overflow: visible;
   }
 
   .carousel-track {
-    --slide-width: 200px; /* 🔥 było 200px → teraz większe */
+    --slide-width: 200px;
 
     justify-content: center;
     width: 100%;
@@ -80,7 +69,7 @@ body {
 
 @media (min-width: 850px) {
   .carousel-track {
-    --slide-width: 240px; /* 🔥 bump */
+    --slide-width: 240px;
 
     padding-left: calc(50% - var(--slide-width) / 2);
     padding-right: calc(50% - var(--slide-width) / 2);
@@ -89,14 +78,13 @@ body {
 
 @media (min-width: 1024px) {
   .carousel-track {
-    --slide-width: 300px; /* 🔥 bump */
+    --slide-width: 300px;
 
     padding-left: calc(50% - var(--slide-width) / 2);
     padding-right: calc(50% - var(--slide-width) / 2);
   }
 }
 
-/* OPIS */
 .how__description1 {
   font-size: 3rem;
   line-height: 20px;
@@ -113,7 +101,6 @@ body {
   line-height: 1.2;
 }
 
-/* tablet */
 @media (min-width: 600px) {
   .how__description1,
   .how__description2 {
@@ -121,7 +108,6 @@ body {
   }
 }
 
-/* small desktop */
 @media (min-width: 850px) {
   .how__description1,
   .how__description2 {
@@ -129,7 +115,6 @@ body {
   }
 }
 
-/* desktop */
 @media (min-width: 1024px) {
   .how__description1,
   .how__description2 {
@@ -137,7 +122,6 @@ body {
   }
 }
 
-/* duże ekrany */
 @media (min-width: 1400px) {
   .how__description1,
   .how__description2 {
